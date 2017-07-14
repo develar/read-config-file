@@ -4,9 +4,9 @@
   "main": "out/main.js",
   "author": "Vladimir Krivosheev",
   "license": "MIT",
-  "repository": "electron-userland/electron-builder",
-  "bugs": "https://github.com/electron-userland/electron-builder/issues",
-  "homepage": "https://github.com/electron-userland/electron-builder",
+  "repository": "develar/read-config-file",
+  "bugs": "https://github.com/develar/read-config-file/issues",
+  "homepage": "https://github.com/develar/read-config-file",
   "files": [
     "out"
   ],
