@@ -1,0 +1,25 @@
+{
+  "extends": "../tsconfig-base.json",
+  "compilerOptions": {
+    "module": "es2015",
+    "target": "es2015",
+    "newLine": "LF",
+    "noEmitOnError": true,
+    "inlineSources": true,
+    "sourceMap": true,
+    "noImplicitReturns": true,
+    "noEmitHelpers": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "moduleResolution": "Node",
+    "baseUrl": ".",
+    "strict": true,
+    "stripInternal": true,
+    "outDir": "out"
+  },
+  "declaration": true,
+  "include": [
+    "src/**/*.ts"
+  ]
+}
