@@ -2,7 +2,7 @@
   "extends": "../tsconfig-base.json",
   "compilerOptions": {
     "module": "es2015",
-    "target": "es2015",
+    "target": "es2017",
     "newLine": "LF",
     "noEmitOnError": true,
     "inlineSources": true,
