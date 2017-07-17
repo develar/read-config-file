@@ -27,5 +27,10 @@
     "ts-babel": "^3.1.2",
     "typescript": "^2.4.1"
   },
+  "babel": {
+    "presets": [
+      "babel-preset-ts-node4-bluebird"
+    ]
+  },
   "typings": "./out/read-config-file.d.ts"
 }
