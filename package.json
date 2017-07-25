@@ -22,10 +22,10 @@
   },
   "devDependencies": {
     "@types/js-yaml": "^3.9.0",
-    "@types/node": "^8.0.12",
+    "@types/node": "^8.0.16",
     "babel-preset-ts-node4-bluebird": "^0.1.0",
-    "ts-babel": "^3.1.2",
-    "typescript": "^2.4.1"
+    "ts-babel": "^3.1.4",
+    "typescript": "^2.4.2"
   },
   "babel": {
     "presets": [
