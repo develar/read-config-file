@@ -62,7 +62,7 @@ export interface ReadConfigRequest {
 }
 
 export async function loadConfig<T>(request: ReadConfigRequest): Promise<T | null> {
-  let packageMetadata = request.packageMetadata == null ? null : await request.packageMetadata
+  let packageMetadata = request.packageMetadata == null ? null : await request.packageMetadata.value
   if (packageMetadata == null) {
     packageMetadata = await orNullIfFileNotExist(readJson(path.join(request.projectDir, "package.json")))
   }
