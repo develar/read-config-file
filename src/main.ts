@@ -70,7 +70,7 @@ export async function loadConfig<T>(request: ReadConfigRequest): Promise<T | nul
   return data == null ? findAndReadConfig<T>(request.projectDir, request.key, request.log) : data
 }
 
-export async function getConfig<T>(request: ReadConfigRequest, configPath: string | null, configFromOptions: T | null | undefined): Promise<T> {
+export async function getConfig<T>(request: ReadConfigRequest, configPath?: string | null, configFromOptions?: T | null): Promise<T> {
   let fileOrPackageConfig: T | null
   if (configPath == null) {
     fileOrPackageConfig = await loadConfig<T>(request)

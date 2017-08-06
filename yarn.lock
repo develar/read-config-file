@@ -314,8 +314,8 @@ convert-source-map@^1.1.0:
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-1.5.0.tgz#9acd70851c6d5dfdd93d9282e5edf94a03ff46b5"
 
 core-js@^2.4.0:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.4.1.tgz#4de911e667b0eae9124e34254b53aea6fc618d3e"
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.0.tgz#569c050918be6486b3837552028ae0466b717086"
 
 debug@^2.1.1, debug@^2.2.0:
   version "2.6.8"
@@ -418,9 +418,9 @@ jsonfile@^3.0.0:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-lazy-val@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/lazy-val/-/lazy-val-1.0.0.tgz#30edadf2df0fd9a74b77dd4962f712c97f06a52d"
+lazy-val@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/lazy-val/-/lazy-val-1.0.1.tgz#bc327f816855f6eba63a2e788becf1f526875cae"
   dependencies:
     bluebird-lst "^1.0.2"
     fs-extra-p "^4.4.0"
@@ -529,9 +529,9 @@ trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
 
-ts-babel@^3.1.4:
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/ts-babel/-/ts-babel-3.1.4.tgz#a9af0db7ba240fb542b806775638e52e8baea3d9"
+ts-babel@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/ts-babel/-/ts-babel-3.2.0.tgz#cb21eac47d6b7660b094a97d53d71bb1b1b75a32"
   dependencies:
     babel-core "^6.25.0"
     bluebird-lst "^1.0.2"
