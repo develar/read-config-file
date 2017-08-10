@@ -6,9 +6,9 @@
   version "3.9.0"
   resolved "https://registry.yarnpkg.com/@types/js-yaml/-/js-yaml-3.9.0.tgz#cf82d31326251e8e94848d98a0665875928cdae6"
 
-"@types/node@^8.0.19":
-  version "8.0.19"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.19.tgz#e46e2b0243de7d03f15b26b45c59ebb84f657a4e"
+"@types/node@^8.0.20":
+  version "8.0.20"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.20.tgz#65c7375255c24b184c215a5d0b63247c32f01c91"
 
 ansi-regex@^2.0.0:
   version "2.1.1"
@@ -256,9 +256,9 @@ balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
 
-bluebird-lst@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/bluebird-lst/-/bluebird-lst-1.0.2.tgz#c7b26176b6c8fa458be703deb0644a28f64a475b"
+bluebird-lst@^1.0.2, bluebird-lst@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/bluebird-lst/-/bluebird-lst-1.0.3.tgz#cc56c18660eff0a0b86e2c33d1659618f7005158"
   dependencies:
     bluebird "^3.5.0"
 
@@ -287,9 +287,9 @@ chalk@^1.1.0:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
-chalk@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.0.1.tgz#dbec49436d2ae15f536114e76d14656cdbc0f44d"
+chalk@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.1.0.tgz#ac5becf14fa21b99c6c92ca7a7d7cfd5b17e743e"
   dependencies:
     ansi-styles "^3.1.0"
     escape-string-regexp "^1.0.5"
@@ -418,14 +418,9 @@ jsonfile@^3.0.0:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-lazy-val@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/lazy-val/-/lazy-val-1.0.1.tgz#bc327f816855f6eba63a2e788becf1f526875cae"
-  dependencies:
-    bluebird-lst "^1.0.2"
-    fs-extra-p "^4.4.0"
-    js-yaml "^3.9.1"
-    json5 "^0.5.1"
+lazy-val@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/lazy-val/-/lazy-val-1.0.2.tgz#d9b07fb1fce54cbc99b3c611de431b83249369b6"
 
 lodash@^4.2.0:
   version "4.17.4"
@@ -529,13 +524,13 @@ trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
 
-ts-babel@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/ts-babel/-/ts-babel-3.2.0.tgz#cb21eac47d6b7660b094a97d53d71bb1b1b75a32"
+ts-babel@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/ts-babel/-/ts-babel-3.2.1.tgz#97ef0582e3da7d9f16e712d4ae2b39cd8be7a4fb"
   dependencies:
     babel-core "^6.25.0"
     bluebird-lst "^1.0.2"
-    chalk "^2.0.1"
+    chalk "^2.1.0"
     fs-extra-p "^4.4.0"
     source-map-support "^0.4.15"
     v8-compile-cache "^1.1.0"

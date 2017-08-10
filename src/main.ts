@@ -24,9 +24,10 @@ export async function readConfig<T>(configFile: string, projectDir?: string, log
   return result
 }
 
-export async function findAndReadConfig<T>(dir: string, prefix: string, log?: (message: string) => void): Promise<T | null> {
+export async function findAndReadConfig<T>(request: ReadConfigRequest): Promise<T | null> {
+  const prefix = request.configFilename
   for (const configFile of [`${prefix}.yml`, `${prefix}.yaml`, `${prefix}.json`, `${prefix}.json5`, `${prefix}.toml`]) {
-    const data = await orNullIfFileNotExist<T>(readConfig(path.join(dir, configFile), dir, log))
+    const data = await orNullIfFileNotExist<T>(readConfig(path.join(request.projectDir, configFile), request.projectDir, request.log))
     if (data != null) {
       return data
     }
@@ -49,12 +50,10 @@ export function orIfFileNotExist<T>(promise: Promise<T>, fallbackValue: T): Prom
     })
 }
 
-function getConfigFromPackageData(metadata: any | null, key: string) {
-  return metadata == null ? null : metadata[key]
-}
-
 export interface ReadConfigRequest {
-  key: string
+  packageKey: string
+  configFilename: string
+
   projectDir: string
   packageMetadata: Lazy<{ [key: string]: any } | null> | null
 
@@ -66,8 +65,8 @@ export async function loadConfig<T>(request: ReadConfigRequest): Promise<T | nul
   if (packageMetadata == null) {
     packageMetadata = await orNullIfFileNotExist(readJson(path.join(request.projectDir, "package.json")))
   }
-  const data = getConfigFromPackageData(packageMetadata, request.key)
-  return data == null ? findAndReadConfig<T>(request.projectDir, request.key, request.log) : data
+  const data = packageMetadata == null ? null : packageMetadata[request.packageKey]
+  return data == null ? findAndReadConfig<T>(request) : data
 }
 
 export async function getConfig<T>(request: ReadConfigRequest, configPath?: string | null, configFromOptions?: T | null): Promise<T> {

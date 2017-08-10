@@ -1,6 +1,6 @@
 {
   "name": "read-config-file",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "out/main.js",
   "author": "Vladimir Krivosheev",
   "license": "MIT",
@@ -15,17 +15,17 @@
     "release": "yarn compile && npm publish"
   },
   "dependencies": {
-    "bluebird-lst": "^1.0.2",
+    "bluebird-lst": "^1.0.3",
     "fs-extra-p": "^4.4.0",
     "js-yaml": "^3.9.1",
     "json5": "^0.5.1",
-    "lazy-val": "^1.0.1"
+    "lazy-val": "^1.0.2"
   },
   "devDependencies": {
     "@types/js-yaml": "^3.9.0",
-    "@types/node": "^8.0.19",
+    "@types/node": "^8.0.20",
     "babel-preset-ts-node4-bluebird": "^0.1.0",
-    "ts-babel": "^3.2.0",
+    "ts-babel": "^3.2.1",
     "typescript": "^2.4.2"
   },
   "babel": {
