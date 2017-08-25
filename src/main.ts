@@ -3,6 +3,8 @@ import { safeLoad } from "js-yaml"
 import * as path from "path"
 import { deepAssign } from "./deepAssign"
 import { Lazy } from "lazy-val"
+import Ajv, { ErrorObject } from "ajv"
+import { normaliseErrorMessages } from "./ajvErrorNormalizer"
 
 export async function readConfig<T>(configFile: string, projectDir?: string, log?: (message: string) => void): Promise<T> {
   const data = await readFile(configFile, "utf8")
@@ -108,4 +110,21 @@ export async function loadParentConfig<T>(request: ReadConfigRequest, spec: stri
   }
 
   return parentConfig
+}
+
+export async function validateConfig(config: any, scheme: Lazy<any>, errorMessage: (error: string, errors: Array<ErrorObject>) => string) {
+  const ajv = new Ajv({
+    allErrors: true,
+    coerceTypes: true,
+    verbose: true,
+    errorDataPath: "configuration",
+  })
+  ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-04.json"))
+  require("ajv-keywords")(ajv, ["typeof"])
+  const schema = await scheme.value
+  const validator = ajv.compile(schema)
+
+  if (!validator(config)) {
+    throw new Error(errorMessage(normaliseErrorMessages(validator.errors!, schema), validator.errors!!))
+  }
 }
