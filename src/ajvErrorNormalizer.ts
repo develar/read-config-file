@@ -20,35 +20,7 @@ class SchemeErrorPrinter {
   formatValidationError(error: ErrorObject) {
     const dataPath = `configuration${error.dataPath}`
     if (error.keyword === "additionalProperties") {
-      const baseMessage = `${dataPath} has an unknown property '${(error.params as AdditionalPropertiesParams).additionalProperty}'. These properties are valid:\n${this.getSchemaPartText(error.parentSchema)}`
-      if (!error.dataPath) {
-        switch ((error.params as AdditionalPropertiesParams).additionalProperty) {
-          case "debug":
-            return `${baseMessage}\n` +
-              "The 'debug' property was removed in webpack 2.\n" +
-              "Loaders should be updated to allow passing this option via loader options in module.rules.\n" +
-              "Until loaders are updated one can use the LoaderOptionsPlugin to switch loaders into debug mode:\n" +
-              "plugins: [\n" +
-              "  new webpack.LoaderOptionsPlugin({\n" +
-              "    debug: true\n" +
-              "  })\n" +
-              "]"
-        }
-        return baseMessage + "\n" +
-          "For typos: please correct them.\n" +
-          "For loader options: webpack 2 no longer allows custom properties in configuration.\n" +
-          "  Loaders should be updated to allow passing options via loader options in module.rules.\n" +
-          "  Until loaders are updated one can use the LoaderOptionsPlugin to pass these options to the loader:\n" +
-          "  plugins: [\n" +
-          "    new webpack.LoaderOptionsPlugin({\n" +
-          "      // test: /\\.xxx$/, // may apply this only for some modules\n" +
-          "      options: {\n" +
-          `        ${(error.params as AdditionalPropertiesParams).additionalProperty}: ...\n` +
-          "      }\n" +
-          "    })\n" +
-          "  ]"
-      }
-      return baseMessage
+      return `${dataPath} has an unknown property '${(error.params as AdditionalPropertiesParams).additionalProperty}'. These properties are valid:\n${this.getSchemaPartText(error.parentSchema)}`
     }
     else if (error.keyword === "oneOf" || error.keyword === "anyOf") {
       const children = (error as any).children

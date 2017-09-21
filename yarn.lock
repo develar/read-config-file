@@ -6,9 +6,9 @@
   version "3.9.1"
   resolved "https://registry.yarnpkg.com/@types/js-yaml/-/js-yaml-3.9.1.tgz#2f3c142771bb345829ce690c5838760b6b9ba553"
 
-"@types/node@^8.0.25":
-  version "8.0.25"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.25.tgz#66ecaf4df93f5281b48427ee96fbcdfc4f0cdce1"
+"@types/node@^8.0.28":
+  version "8.0.28"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.28.tgz#86206716f8d9251cf41692e384264cbd7058ad60"
 
 ajv-keywords@^2.1.0:
   version "2.1.0"
@@ -200,9 +200,9 @@ babel-plugin-transform-strict-mode@^6.8.0:
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
 
-babel-preset-ts-node4-bluebird@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/babel-preset-ts-node4-bluebird/-/babel-preset-ts-node4-bluebird-0.1.0.tgz#7e3faa188d555436c8920d163de0925bbddab9c3"
+babel-preset-ts-node4-bluebird@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/babel-preset-ts-node4-bluebird/-/babel-preset-ts-node4-bluebird-0.1.1.tgz#72a3bb93b4ff026308844ca8d1d1ba587e30e7fd"
   dependencies:
     babel-plugin-array-includes "^2.0.3"
     babel-plugin-transform-async-to-module-method "^6.24.1"
@@ -442,9 +442,9 @@ js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
 
-js-yaml@^3.9.1:
-  version "3.9.1"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.9.1.tgz#08775cebdfdd359209f0d2acd383c8f86a6904a0"
+js-yaml@^3.10.0:
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.10.0.tgz#2e78441646bd4682e963f22b6e92823c309c62dc"
   dependencies:
     argparse "^1.0.7"
     esprima "^4.0.0"
@@ -587,9 +587,9 @@ trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
 
-ts-babel@^4.1.3:
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/ts-babel/-/ts-babel-4.1.3.tgz#2bbf0efcfe7af496292e4c97b7df9e5d42eb1da5"
+ts-babel@^4.1.5:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/ts-babel/-/ts-babel-4.1.5.tgz#b9b4f17b07e0aae012e9bca7aa64d43971a67c29"
   dependencies:
     babel-core "^6.26.0"
     bluebird-lst "^1.0.3"
@@ -597,9 +597,9 @@ ts-babel@^4.1.3:
     source-map-support "^0.4.16"
     v8-compile-cache "^1.1.0"
 
-typescript@^2.4.2:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.1.tgz#ce7cc93ada3de19475cc9d17e3adea7aee1832aa"
+typescript@^2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.2.tgz#038a95f7d9bbb420b1bf35ba31d4c5c1dd3ffe34"
 
 universalify@^0.1.0:
   version "0.1.1"
