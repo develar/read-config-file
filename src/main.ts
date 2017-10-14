@@ -5,6 +5,7 @@ import { deepAssign } from "./deepAssign"
 import { Lazy } from "lazy-val"
 import Ajv, { ErrorObject } from "ajv"
 import { normaliseErrorMessages } from "./ajvErrorNormalizer"
+import { parse as parseEnv } from "dotenv"
 
 export async function readConfig<T>(configFile: string, projectDir?: string, log?: (message: string) => void): Promise<T> {
   const data = await readFile(configFile, "utf8")
@@ -127,4 +128,20 @@ export async function validateConfig(config: any, scheme: Lazy<any>, errorMessag
   if (!validator(config)) {
     throw new Error(errorMessage(normaliseErrorMessages(validator.errors!, schema), validator.errors!!))
   }
+}
+
+export async function loadEnv(envFile: string) {
+  const data = await orNullIfFileNotExist(readFile(envFile, "utf8"))
+  if (data == null) {
+    return null
+  }
+
+  const parsed = parseEnv(data)
+  for (const key of Object.keys(parsed)) {
+    if (!process.env.hasOwnProperty(key)) {
+      process.env[key] = parsed[key]
+    }
+  }
+  require("dotenv-expand")(parsed)
+  return parsed
 }
