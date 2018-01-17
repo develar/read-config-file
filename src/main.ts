@@ -1,13 +1,17 @@
 import { readFile, readJson } from "fs-extra-p"
 import { safeLoad } from "js-yaml"
 import * as path from "path"
-import { deepAssign } from "./deepAssign"
 import { Lazy } from "lazy-val"
 import Ajv, { ErrorObject } from "ajv"
 import { normaliseErrorMessages } from "./ajvErrorNormalizer"
 import { parse as parseEnv } from "dotenv"
 
-export async function readConfig<T>(configFile: string, projectDir?: string, log?: (message: string) => void): Promise<T> {
+export interface ReadConfigResult<T> {
+  readonly result: T
+  readonly configFile: string | null
+}
+
+export async function readConfig<T>(configFile: string): Promise<ReadConfigResult<T>> {
   const data = await readFile(configFile, "utf8")
   let result
   if (configFile.endsWith(".json5") || configFile.endsWith(".json")) {
@@ -19,18 +23,13 @@ export async function readConfig<T>(configFile: string, projectDir?: string, log
   else {
     result = safeLoad(data)
   }
-
-  if (log != null && projectDir != null) {
-    const relativePath = path.relative(projectDir, configFile)
-    log(`Using ${relativePath.startsWith("..") ? configFile : relativePath} configuration file`)
-  }
-  return result
+  return {result, configFile}
 }
 
-export async function findAndReadConfig<T>(request: ReadConfigRequest): Promise<T | null> {
+export async function findAndReadConfig<T>(request: ReadConfigRequest): Promise<ReadConfigResult<T> | null> {
   const prefix = request.configFilename
   for (const configFile of [`${prefix}.yml`, `${prefix}.yaml`, `${prefix}.json`, `${prefix}.json5`, `${prefix}.toml`]) {
-    const data = await orNullIfFileNotExist<T>(readConfig(path.join(request.projectDir, configFile), request.projectDir, request.log))
+    const data = await orNullIfFileNotExist(readConfig<T>(path.join(request.projectDir, configFile)))
     if (data != null) {
       return data
     }
@@ -59,39 +58,34 @@ export interface ReadConfigRequest {
 
   projectDir: string
   packageMetadata: Lazy<{ [key: string]: any } | null> | null
-
-  log?: (message: string) => void
 }
 
-export async function loadConfig<T>(request: ReadConfigRequest): Promise<T | null> {
+export async function loadConfig<T>(request: ReadConfigRequest): Promise<ReadConfigResult<T> | null> {
   let packageMetadata = request.packageMetadata == null ? null : await request.packageMetadata.value
   if (packageMetadata == null) {
     packageMetadata = await orNullIfFileNotExist(readJson(path.join(request.projectDir, "package.json")))
   }
-  const data = packageMetadata == null ? null : packageMetadata[request.packageKey]
-  return data == null ? findAndReadConfig<T>(request) : data
+  const data: T = packageMetadata == null ? null : packageMetadata[request.packageKey]
+  return data == null ? findAndReadConfig<T>(request) : {result: data, configFile: null}
 }
 
-export async function getConfig<T>(request: ReadConfigRequest, configPath?: string | null, configFromOptions?: T | null): Promise<T> {
-  let fileOrPackageConfig: T | null
+export function getConfig<T>(request: ReadConfigRequest, configPath?: string | null): Promise<ReadConfigResult<T> | null> {
   if (configPath == null) {
-    fileOrPackageConfig = await loadConfig<T>(request)
+    return loadConfig<T>(request)
   }
   else {
-    fileOrPackageConfig = await readConfig<T>(path.resolve(request.projectDir, configPath), request.projectDir, request.log)
+    return readConfig<T>(path.resolve(request.projectDir, configPath))
   }
-
-  return deepAssign(fileOrPackageConfig == null ? Object.create(null) : fileOrPackageConfig, configFromOptions)
 }
 
-export async function loadParentConfig<T>(request: ReadConfigRequest, spec: string): Promise<T> {
+export async function loadParentConfig<T>(request: ReadConfigRequest, spec: string): Promise<ReadConfigResult<T>> {
   let isFileSpec: boolean | undefined
   if (spec.startsWith("file:")) {
     spec = spec.substring("file:".length)
     isFileSpec = true
   }
 
-  let parentConfig = await orNullIfFileNotExist(readConfig<T>(path.resolve(request.projectDir, spec), request.projectDir, request.log))
+  let parentConfig = await orNullIfFileNotExist(readConfig<T>(path.resolve(request.projectDir, spec)))
   if (parentConfig == null && isFileSpec !== true) {
     let resolved: string | null = null
     try {
@@ -102,7 +96,7 @@ export async function loadParentConfig<T>(request: ReadConfigRequest, spec: stri
     }
 
     if (resolved != null) {
-      parentConfig = await readConfig<T>(resolved, request.projectDir, request.log)
+      parentConfig = await readConfig<T>(resolved)
     }
   }
 
@@ -126,7 +120,9 @@ export async function validateConfig(config: any, scheme: Lazy<any>, errorMessag
   const validator = ajv.compile(schema)
 
   if (!validator(config)) {
-    throw new Error(errorMessage(normaliseErrorMessages(validator.errors!, schema), validator.errors!!))
+    const error = new Error(errorMessage(normaliseErrorMessages(validator.errors!, schema), validator.errors!!));
+    (error as any).code = "ERR_CONFIG_INVALID"
+    throw error
   }
 }
 
