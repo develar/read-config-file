@@ -1,6 +1,6 @@
 {
   "name": "read-config-file",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "main": "out/main.js",
   "author": "Vladimir Krivosheev",
   "license": "MIT",
@@ -15,8 +15,8 @@
     "release": "yarn compile && npm publish"
   },
   "dependencies": {
-    "ajv": "^6.0.1",
-    "ajv-keywords": "^3.0.0",
+    "ajv": "^5.5.0",
+    "ajv-keywords": "^2.1.0",
     "bluebird-lst": "^1.0.5",
     "dotenv": "^4.0.0",
     "dotenv-expand": "^4.0.1",
