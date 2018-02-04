@@ -114,7 +114,6 @@ export async function validateConfig(config: any, scheme: Lazy<any>, errorMessag
     verbose: true,
     errorDataPath: "configuration",
   })
-  ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-04.json"))
   require("ajv-keywords")(ajv, ["typeof"])
   const schema = await scheme.value
   const validator = ajv.compile(schema)
