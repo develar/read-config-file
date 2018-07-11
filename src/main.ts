@@ -17,6 +17,9 @@ export async function readConfig<T>(configFile: string): Promise<ReadConfigResul
   if (configFile.endsWith(".json5") || configFile.endsWith(".json")) {
     result = require("json5").parse(data)
   }
+  else if (configFile.endsWith(".js")) {
+    result = require(configFile)
+  }
   else if (configFile.endsWith(".toml")) {
     result = require("toml").parse(data)
   }
