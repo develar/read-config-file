@@ -1,6 +1,6 @@
 {
   "name": "read-config-file",
-  "version": "3.0.2",
+  "version": "3.1.1",
   "main": "out/main.js",
   "author": "Vladimir Krivosheev",
   "license": "MIT",
@@ -15,7 +15,7 @@
     "release": "yarn compile && npm publish"
   },
   "dependencies": {
-    "ajv": "^6.5.1",
+    "ajv": "^6.5.2",
     "ajv-keywords": "^3.2.0",
     "bluebird-lst": "^1.0.5",
     "dotenv": "^6.0.0",
@@ -27,11 +27,11 @@
   },
   "devDependencies": {
     "@types/dotenv": "^4.0.3",
-    "@types/js-yaml": "^3.11.1",
-    "@types/node": "^10.3.5",
-    "babel-preset-ts-node6-bluebird": "^2.0.8",
-    "ts-babel": "^5.0.7",
-    "typescript": "^2.9.2"
+    "@types/js-yaml": "^3.11.2",
+    "@types/node": "^10.7.0",
+    "babel-preset-ts-node6-bluebird": "^2.0.10",
+    "ts-babel": "^6.0.1",
+    "typescript": "^3.0.1"
   },
   "babel": {
     "presets": [
