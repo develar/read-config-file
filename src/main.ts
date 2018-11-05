@@ -1,17 +1,17 @@
-import { readFile, readJson } from "fs-extra-p"
-import { safeLoad } from "js-yaml"
+import {readFile, readJson} from "fs-extra-p"
+import {safeLoad} from "js-yaml"
 import * as path from "path"
-import { Lazy } from "lazy-val"
-import Ajv, { ErrorObject } from "ajv"
-import { normaliseErrorMessages } from "./ajvErrorNormalizer"
-import { parse as parseEnv } from "dotenv"
+import {Lazy} from "lazy-val"
+import Ajv, {ErrorObject} from "ajv"
+import {normaliseErrorMessages} from "./ajvErrorNormalizer"
+import {parse as parseEnv} from "dotenv"
 
 export interface ReadConfigResult<T> {
   readonly result: T
   readonly configFile: string | null
 }
 
-export async function readConfig<T>(configFile: string): Promise<ReadConfigResult<T>> {
+async function readConfig<T>(configFile: string, request: ReadConfigRequest): Promise<ReadConfigResult<T>> {
   const data = await readFile(configFile, "utf8")
   let result
   if (configFile.endsWith(".json5") || configFile.endsWith(".json")) {
@@ -19,6 +19,13 @@ export async function readConfig<T>(configFile: string): Promise<ReadConfigResul
   }
   else if (configFile.endsWith(".js")) {
     result = require(configFile)
+    if (result.default != null) {
+      result = result.default
+    }
+    if (typeof result === "function") {
+      result = result(request)
+    }
+    result = await Promise.resolve(result)
   }
   else if (configFile.endsWith(".toml")) {
     result = require("toml").parse(data)
@@ -31,8 +38,8 @@ export async function readConfig<T>(configFile: string): Promise<ReadConfigResul
 
 export async function findAndReadConfig<T>(request: ReadConfigRequest): Promise<ReadConfigResult<T> | null> {
   const prefix = request.configFilename
-  for (const configFile of [`${prefix}.yml`, `${prefix}.yaml`, `${prefix}.json`, `${prefix}.json5`, `${prefix}.toml`]) {
-    const data = await orNullIfFileNotExist(readConfig<T>(path.join(request.projectDir, configFile)))
+  for (const configFile of [`${prefix}.yml`, `${prefix}.yaml`, `${prefix}.json`, `${prefix}.json5`, `${prefix}.toml`, `${prefix}.js`]) {
+    const data = await orNullIfFileNotExist(readConfig<T>(path.join(request.projectDir, configFile), request))
     if (data != null) {
       return data
     }
@@ -68,6 +75,7 @@ export async function loadConfig<T>(request: ReadConfigRequest): Promise<ReadCon
   if (packageMetadata == null) {
     packageMetadata = await orNullIfFileNotExist(readJson(path.join(request.projectDir, "package.json")))
   }
+
   const data: T = packageMetadata == null ? null : packageMetadata[request.packageKey]
   return data == null ? findAndReadConfig<T>(request) : {result: data, configFile: null}
 }
@@ -77,7 +85,7 @@ export function getConfig<T>(request: ReadConfigRequest, configPath?: string | n
     return loadConfig<T>(request)
   }
   else {
-    return readConfig<T>(path.resolve(request.projectDir, configPath))
+    return readConfig<T>(path.resolve(request.projectDir, configPath), request)
   }
 }
 
@@ -88,7 +96,7 @@ export async function loadParentConfig<T>(request: ReadConfigRequest, spec: stri
     isFileSpec = true
   }
 
-  let parentConfig = await orNullIfFileNotExist(readConfig<T>(path.resolve(request.projectDir, spec)))
+  let parentConfig = await orNullIfFileNotExist(readConfig<T>(path.resolve(request.projectDir, spec), request))
   if (parentConfig == null && isFileSpec !== true) {
     let resolved: string | null = null
     try {
@@ -99,7 +107,7 @@ export async function loadParentConfig<T>(request: ReadConfigRequest, spec: stri
     }
 
     if (resolved != null) {
-      parentConfig = await readConfig<T>(resolved)
+      parentConfig = await readConfig<T>(resolved, request)
     }
   }
 
