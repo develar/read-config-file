@@ -1,4 +1,4 @@
-import {readFile, readJson} from "fs-extra-p"
+import {readFile, readJson} from "fs-extra"
 import {safeLoad} from "js-yaml"
 import * as path from "path"
 import {Lazy} from "lazy-val"
