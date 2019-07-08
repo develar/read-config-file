@@ -1,6 +1,6 @@
 {
   "name": "read-config-file",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "main": "out/main.js",
   "author": "Vladimir Krivosheev",
   "license": "MIT",
@@ -18,9 +18,8 @@
     "release": "yarn compile && npm publish"
   },
   "dependencies": {
-    "ajv": "^6.10.0",
-    "ajv-keywords": "^3.4.0",
-    "bluebird-lst": "^1.0.9",
+    "ajv": "^6.10.1",
+    "ajv-keywords": "^3.4.1",
     "dotenv": "^8.0.0",
     "dotenv-expand": "^5.1.0",
     "fs-extra": "^8.1.0",
@@ -32,7 +31,7 @@
     "@types/dotenv": "^6.1.1",
     "@types/fs-extra": "^8.0.0",
     "@types/js-yaml": "^3.12.1",
-    "@types/node": "^12.0.10",
+    "@types/node": "^12.6.0",
     "babel-preset-ts-node8": "^4.0.0",
     "ts-babel": "^6.1.7",
     "typescript": "^3.5.2"
