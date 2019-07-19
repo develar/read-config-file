@@ -1,3 +1,4 @@
 out/
 node_modules/
 .idea/workspace.xml
+yarn-error.log

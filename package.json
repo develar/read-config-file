@@ -1,6 +1,6 @@
 {
   "name": "read-config-file",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "main": "out/main.js",
   "author": "Vladimir Krivosheev",
   "license": "MIT",
@@ -14,12 +14,10 @@
     "out"
   ],
   "scripts": {
-    "compile": "ts-babel",
+    "compile": "tsc",
     "release": "yarn compile && npm publish"
   },
   "dependencies": {
-    "ajv": "^6.10.1",
-    "ajv-keywords": "^3.4.1",
     "dotenv": "^8.0.0",
     "dotenv-expand": "^5.1.0",
     "fs-extra": "^8.1.0",
@@ -31,15 +29,8 @@
     "@types/dotenv": "^6.1.1",
     "@types/fs-extra": "^8.0.0",
     "@types/js-yaml": "^3.12.1",
-    "@types/node": "^12.6.0",
-    "babel-preset-ts-node8": "^4.0.0",
-    "ts-babel": "^6.1.7",
-    "typescript": "^3.5.2"
-  },
-  "babel": {
-    "presets": [
-      "babel-preset-ts-node8"
-    ]
+    "@types/node": "^12.6.8",
+    "typescript": "^3.5.3"
   },
   "typings": "./out/main.d.ts"
 }

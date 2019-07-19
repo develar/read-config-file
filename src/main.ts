@@ -1,10 +1,8 @@
-import {readFile, readJson} from "fs-extra"
-import {safeLoad} from "js-yaml"
+import { readFile, readJson } from "fs-extra"
+import { safeLoad } from "js-yaml"
 import * as path from "path"
-import {Lazy} from "lazy-val"
-import Ajv, {ErrorObject} from "ajv"
-import {normaliseErrorMessages} from "./ajvErrorNormalizer"
-import {parse as parseEnv} from "dotenv"
+import { Lazy } from "lazy-val"
+import { parse as parseEnv } from "dotenv"
 
 export interface ReadConfigResult<T> {
   readonly result: T
@@ -116,24 +114,6 @@ export async function loadParentConfig<T>(request: ReadConfigRequest, spec: stri
   }
 
   return parentConfig
-}
-
-export async function validateConfig(config: any, scheme: Lazy<any>, errorMessage: (error: string, errors: Array<ErrorObject>) => string) {
-  const ajv = new Ajv({
-    allErrors: true,
-    coerceTypes: true,
-    verbose: true,
-    errorDataPath: "configuration",
-  })
-  require("ajv-keywords")(ajv, ["typeof"])
-  const schema = await scheme.value
-  const validator = ajv.compile(schema)
-
-  if (!validator(config)) {
-    const error = new Error(errorMessage(normaliseErrorMessages(validator.errors!, schema), validator.errors!!));
-    (error as any).code = "ERR_CONFIG_INVALID"
-    throw error
-  }
 }
 
 export async function loadEnv(envFile: string) {
