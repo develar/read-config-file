@@ -1,6 +1,6 @@
 {
   "name": "read-config-file",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "main": "out/main.js",
   "author": "Vladimir Krivosheev",
   "license": "MIT",
@@ -18,19 +18,19 @@
     "release": "yarn compile && npm publish"
   },
   "dependencies": {
-    "dotenv": "^8.0.0",
+    "dotenv": "^8.2.0",
     "dotenv-expand": "^5.1.0",
     "fs-extra": "^8.1.0",
     "js-yaml": "^3.13.1",
-    "json5": "^2.1.0",
+    "json5": "^2.1.1",
     "lazy-val": "^1.0.4"
   },
   "devDependencies": {
-    "@types/dotenv": "^6.1.1",
-    "@types/fs-extra": "^8.0.0",
+    "@types/dotenv": "^8.2.0",
+    "@types/fs-extra": "^8.0.1",
     "@types/js-yaml": "^3.12.1",
-    "@types/node": "^12.6.8",
-    "typescript": "^3.5.3"
+    "@types/node": "^12.12.14",
+    "typescript": "^3.7.2"
   },
   "typings": "./out/main.d.ts"
 }
