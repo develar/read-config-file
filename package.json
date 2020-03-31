@@ -1,12 +1,12 @@
 {
   "name": "read-config-file",
-  "version": "5.0.2",
+  "version": "6.0.0",
   "main": "out/main.js",
   "author": "Vladimir Krivosheev",
   "license": "MIT",
   "repository": "develar/read-config-file",
   "engines": {
-    "node": ">=8.12.0"
+    "node": ">=10.0.0"
   },
   "bugs": "https://github.com/develar/read-config-file/issues",
   "homepage": "https://github.com/develar/read-config-file",
@@ -20,16 +20,14 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "dotenv-expand": "^5.1.0",
-    "fs-extra": "^8.1.0",
     "js-yaml": "^3.13.1",
-    "json5": "^2.1.1",
+    "json5": "^2.1.2",
     "lazy-val": "^1.0.4"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
-    "@types/fs-extra": "^8.1.0",
-    "@types/js-yaml": "^3.12.2",
-    "@types/node": "^13.7.7",
+    "@types/js-yaml": "^3.12.3",
+    "@types/node": "^13.9.8",
     "typescript": "^3.8.3"
   },
   "typings": "./out/main.d.ts"

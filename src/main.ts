@@ -1,4 +1,4 @@
-import { readFile, readJson } from "fs-extra"
+import { promises as fs } from "fs"
 import { safeLoad } from "js-yaml"
 import * as path from "path"
 import { Lazy } from "lazy-val"
@@ -10,7 +10,7 @@ export interface ReadConfigResult<T> {
 }
 
 async function readConfig<T>(configFile: string, request: ReadConfigRequest): Promise<ReadConfigResult<T>> {
-  const data = await readFile(configFile, "utf8")
+  const data = await fs.readFile(configFile, "utf8")
   let result
   if (configFile.endsWith(".json5") || configFile.endsWith(".json")) {
     result = require("json5").parse(data)
@@ -71,7 +71,8 @@ export interface ReadConfigRequest {
 export async function loadConfig<T>(request: ReadConfigRequest): Promise<ReadConfigResult<T> | null> {
   let packageMetadata = request.packageMetadata == null ? null : await request.packageMetadata.value
   if (packageMetadata == null) {
-    packageMetadata = await orNullIfFileNotExist(readJson(path.join(request.projectDir, "package.json")))
+    const json = await orNullIfFileNotExist(fs.readFile(path.join(request.projectDir, "package.json"), "utf8"))
+    packageMetadata = json == null ? null : JSON.parse(json)
   }
 
   const data: T = packageMetadata == null ? null : packageMetadata[request.packageKey]
@@ -117,7 +118,7 @@ export async function loadParentConfig<T>(request: ReadConfigRequest, spec: stri
 }
 
 export async function loadEnv(envFile: string) {
-  const data = await orNullIfFileNotExist(readFile(envFile, "utf8"))
+  const data = await orNullIfFileNotExist(fs.readFile(envFile, "utf8"))
   if (data == null) {
     return null
   }
