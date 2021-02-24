@@ -15,7 +15,7 @@ async function readConfig<T>(configFile: string, request: ReadConfigRequest): Pr
   if (configFile.endsWith(".json5") || configFile.endsWith(".json")) {
     result = require("json5").parse(data)
   }
-  else if (configFile.endsWith(".js")) {
+  else if (configFile.endsWith(".js") || configFile.endsWith(".cjs")) {
     result = require(configFile)
     if (result.default != null) {
       result = result.default
