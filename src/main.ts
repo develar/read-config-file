@@ -36,7 +36,7 @@ async function readConfig<T>(configFile: string, request: ReadConfigRequest): Pr
 
 export async function findAndReadConfig<T>(request: ReadConfigRequest): Promise<ReadConfigResult<T> | null> {
   const prefix = request.configFilename
-  for (const configFile of [`${prefix}.yml`, `${prefix}.yaml`, `${prefix}.json`, `${prefix}.json5`, `${prefix}.toml`, `${prefix}.js`]) {
+  for (const configFile of [`${prefix}.yml`, `${prefix}.yaml`, `${prefix}.json`, `${prefix}.json5`, `${prefix}.toml`, `${prefix}.js`, `${prefix}.cjs`]) {
     const data = await orNullIfFileNotExist(readConfig<T>(path.join(request.projectDir, configFile), request))
     if (data != null) {
       return data
