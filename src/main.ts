@@ -1,5 +1,5 @@
 import { promises as fs } from "fs"
-import { safeLoad } from "js-yaml"
+import { load } from "js-yaml"
 import * as path from "path"
 import { Lazy } from "lazy-val"
 import { parse as parseEnv } from "dotenv"
@@ -29,7 +29,7 @@ async function readConfig<T>(configFile: string, request: ReadConfigRequest): Pr
     result = require("toml").parse(data)
   }
   else {
-    result = safeLoad(data)
+    result = load(data)
   }
   return {result, configFile}
 }
