@@ -3,6 +3,7 @@ import { load } from "js-yaml"
 import * as path from "path"
 import { Lazy } from "lazy-val"
 import { parse as parseEnv } from "dotenv"
+import { loadTsConfig } from "config-file-ts"
 
 export interface ReadConfigResult<T> {
   readonly result: T
@@ -25,6 +26,13 @@ async function readConfig<T>(configFile: string, request: ReadConfigRequest): Pr
     }
     result = await Promise.resolve(result)
   }
+  else if (configFile.endsWith(".ts")) {
+    result = loadTsConfig<T>(configFile)
+    if (typeof result === "function") {
+      result = result(request)
+    }
+    result = await Promise.resolve(result)
+  }
   else if (configFile.endsWith(".toml")) {
     result = require("toml").parse(data)
   }
@@ -36,7 +44,7 @@ async function readConfig<T>(configFile: string, request: ReadConfigRequest): Pr
 
 export async function findAndReadConfig<T>(request: ReadConfigRequest): Promise<ReadConfigResult<T> | null> {
   const prefix = request.configFilename
-  for (const configFile of [`${prefix}.yml`, `${prefix}.yaml`, `${prefix}.json`, `${prefix}.json5`, `${prefix}.toml`, `${prefix}.js`, `${prefix}.cjs`]) {
+  for (const configFile of [`${prefix}.yml`, `${prefix}.yaml`, `${prefix}.json`, `${prefix}.json5`, `${prefix}.toml`, `${prefix}.js`, `${prefix}.cjs`, `${prefix}.ts`]) {
     const data = await orNullIfFileNotExist(readConfig<T>(path.join(request.projectDir, configFile), request))
     if (data != null) {
       return data
