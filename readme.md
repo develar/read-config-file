@@ -8,3 +8,4 @@ Read configuration file in various formats:
 * js
 * cjs
 * toml (if installed, `yarn add toml`).
+* ts
