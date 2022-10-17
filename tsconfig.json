@@ -12,7 +12,8 @@
     "allowSyntheticDefaultImports": true,
     "newLine": "lf",
     "noEmitOnError": true,
-    "outDir": "out"
+    "outDir": "out",
+    "declaration": true
   },
   "include": [
     "src/**/*.ts"
