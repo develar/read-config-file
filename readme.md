@@ -7,5 +7,6 @@ Read configuration file in various formats:
 * json
 * js
 * cjs
+* mjs
 * toml (if installed, `yarn add toml`).
 * ts
