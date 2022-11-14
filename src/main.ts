@@ -4,6 +4,7 @@ import * as path from "path"
 import { Lazy } from "lazy-val"
 import { parse as parseEnv } from "dotenv"
 import { loadTsConfig } from "config-file-ts"
+import { pathToFileURL } from 'url';
 
 export interface ReadConfigResult<T> {
   readonly result: T
@@ -16,8 +17,11 @@ async function readConfig<T>(configFile: string, request: ReadConfigRequest): Pr
   if (configFile.endsWith(".json5") || configFile.endsWith(".json")) {
     result = require("json5").parse(data)
   }
-  else if (configFile.endsWith(".js") || configFile.endsWith(".cjs")) {
-    result = require(configFile)
+  else if (configFile.endsWith(".js") || configFile.endsWith(".cjs") || configFile.endsWith(".mjs")) {
+    result = configFile.endsWith(".mjs")
+        ? await import(pathToFileURL(configFile).toString())
+        : require(configFile)
+
     if (result.default != null) {
       result = result.default
     }
@@ -44,7 +48,7 @@ async function readConfig<T>(configFile: string, request: ReadConfigRequest): Pr
 
 export async function findAndReadConfig<T>(request: ReadConfigRequest): Promise<ReadConfigResult<T> | null> {
   const prefix = request.configFilename
-  for (const configFile of [`${prefix}.yml`, `${prefix}.yaml`, `${prefix}.json`, `${prefix}.json5`, `${prefix}.toml`, `${prefix}.js`, `${prefix}.cjs`, `${prefix}.ts`]) {
+  for (const configFile of [`${prefix}.yml`, `${prefix}.yaml`, `${prefix}.json`, `${prefix}.json5`, `${prefix}.toml`, `${prefix}.js`,  `${prefix}.mjs`, `${prefix}.cjs`, `${prefix}.ts`]) {
     const data = await orNullIfFileNotExist(readConfig<T>(path.join(request.projectDir, configFile), request))
     if (data != null) {
       return data
