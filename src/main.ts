@@ -18,7 +18,10 @@ async function readConfig<T>(configFile: string, request: ReadConfigRequest): Pr
     result = require("json5").parse(data)
   }
   else if (configFile.endsWith(".js") || configFile.endsWith(".cjs") || configFile.endsWith(".mjs")) {
-    result = configFile.endsWith(".mjs") ? await import(pathToFileURL(configFile).toString()) : require(configFile)
+    result = configFile.endsWith(".mjs")
+        ? await import(pathToFileURL(configFile).toString())
+        : require(configFile)
+
     if (result.default != null) {
       result = result.default
     }
