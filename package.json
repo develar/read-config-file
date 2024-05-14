@@ -1,6 +1,6 @@
 {
   "name": "read-config-file",
-  "version": "6.2.0",
+  "version": "6.4.0",
   "main": "out/main.js",
   "author": "Vladimir Krivosheev",
   "license": "MIT",
@@ -19,16 +19,16 @@
   },
   "dependencies": {
     "config-file-ts": "0.2.8-rc1",
-    "dotenv": "^9.0.2",
-    "dotenv-expand": "^5.1.0",
+    "dotenv": "^16.4.5",
+    "dotenv-expand": "^11.0.6",
     "js-yaml": "^4.1.0",
-    "json5": "^2.2.0",
-    "lazy-val": "^1.0.4"
+    "json5": "^2.2.3",
+    "lazy-val": "^1.0.5"
   },
   "devDependencies": {
-    "@types/js-yaml": "^4.0.1",
-    "@types/node": "^15.0.2",
-    "typescript": "^4.2.4"
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.12.12",
+    "typescript": "^5.4.5"
   },
   "typings": "./out/main.d.ts"
 }
