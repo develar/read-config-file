@@ -18,7 +18,7 @@
     "release": "pnpm compile && pnpm publish --no-git-checks"
   },
   "dependencies": {
-    "config-file-ts": "^0.2.4",
+    "config-file-ts": "0.2.8-rc1",
     "dotenv": "^9.0.2",
     "dotenv-expand": "^5.1.0",
     "js-yaml": "^4.1.0",
